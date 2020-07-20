@@ -5,7 +5,7 @@ import compress from "compression";
 import cors from "cors";
 import helmet from "helmet";
 import Template from "./../template";
-import userRoutes from "./routes/user.routes";
+import userRouters from "./routes/user.routes";
 
 const app = express();
 app.use(bodyParser.json());
