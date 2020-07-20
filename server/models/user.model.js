@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import crypto from "crypto";
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -13,16 +14,16 @@ const UserSchema = new mongoose.Schema({
     match: [/.+\@.+\..+/, "Please fill a valid email address"],
     required: "Email is required",
   },
-  created: {
-    type: Date,
-    default: Date.now,
-  },
-  updated: Date,
   hashed_password: {
     type: String,
     required: "Password is required",
   },
+  updated: Date,
   salt: String,
+  created: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 UserSchema.virtual("password")
@@ -36,7 +37,7 @@ UserSchema.virtual("password")
   });
 
 UserSchema.path("hashed_password").validate(function (v) {
-  if (this._password && this_password.length < 6) {
+  if (this._password && this._password.length < 6) {
     this.invalidate("password", "Password must be at least 6 characters.");
   }
   if (this.isNew && !this._password) {
@@ -53,7 +54,7 @@ UserSchema.methods = {
     try {
       return crypto
         .createHmac("sha1", this.salt)
-        .updated(password)
+        .update(password)
         .digest("hex");
     } catch (err) {
       return "";
