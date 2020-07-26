@@ -1,16 +1,13 @@
 import React from "react";
 import { hot } from "react-hot-loader";
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "@material-ui/styles";
-import theme from "./theme";
 import MainRouter from "./MainRouter";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <MainRouter />
-      </ThemeProvider>
+      <MainRouter />
     </BrowserRouter>
   );
 };

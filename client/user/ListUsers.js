@@ -1,30 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { list } from "./api-user";
-import {
-  Paper,
-  List,
-  ListItem,
-  makeStyles,
-  Typography,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
-} from "@material-ui/core";
-import { ArrowForward, Person } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-
-const useStyles = makeStyles((theme) => ({
-  root: theme.mixins.gutters({
-    padding: theme.spacing(1),
-    margin: theme.spacing(5),
-  }),
-  title: {
-    margin: `${theme.spacing(4)}px 0 ${theme.spacing(2)}px`,
-    color: theme.palette.openTitle,
-  },
-}));
+import { ListGroup, Col, Row, Card } from "react-bootstrap";
+import userImg from "./../assets/user.png";
+import nextImg from "./../assets/next.png";
 
 const ListUsers = () => {
   const [users, setUsers] = useState([]);
@@ -45,35 +24,47 @@ const ListUsers = () => {
     };
   }, []);
 
-  const classes = useStyles();
-
   return (
-    <Paper className={classes.root} elevation={4}>
-      <Typography variant="h6" className={classes.title}>
-        All Users
-      </Typography>
-      <List dense>
-        {users.map((item, i) => {
-          return (
-            <Link to={"/user/" + item._id} key={i}>
-              <ListItem button>
-                <ListItemAvatar>
-                  <Avatar>
-                    <Person />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={item.name} />
-                <ListItemSecondaryAction>
-                  <IconButton>
-                    <ArrowForward />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            </Link>
-          );
-        })}
-      </List>
-    </Paper>
+    <Row className="mt-1">
+      <Col md={{ span: 6, offset: 3 }}>
+        <Card className="text-center">
+          <Card.Body>
+            <Row className="my-2">
+              <Col>
+                <h1 className="display-4" style={{ fontSize: "30px" }}>
+                  All Users
+                </h1>
+              </Col>
+            </Row>
+            <Row>
+              <Col md="12">
+                <ListGroup variant="flush">
+                  {users.map((item, i) => {
+                    return (
+                      <Row className="my-1">
+                        <Col md="2" className="my-auto">
+                          <img src={userImg} className="img-fluid" />
+                        </Col>
+                        <Col md="8" className="my-auto">
+                          <Link to={"/user/" + item._id} key={i}>
+                            <ListGroup.Item style={{ border: "0px" }}>
+                              {item.name}
+                            </ListGroup.Item>
+                          </Link>
+                        </Col>
+                        <Col md="2" className="my-auto">
+                          <img src={nextImg} className="img-fluid" />
+                        </Col>
+                      </Row>
+                    );
+                  })}
+                </ListGroup>
+              </Col>
+            </Row>
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 
