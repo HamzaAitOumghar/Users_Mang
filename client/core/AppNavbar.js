@@ -14,7 +14,12 @@ const AppNavbar = () => {
           <Link to="/users" className="nav-link">
             Users
           </Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
+          <Link to="/signup" className="nav-link">
+            Sign Up
+          </Link>
+          <Link to="/signin" className="nav-link">
+            Sign In
+          </Link>
         </Nav>
       </Navbar>
     </>

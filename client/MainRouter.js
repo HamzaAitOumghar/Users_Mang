@@ -4,6 +4,7 @@ import Home from "./core/Home";
 import ListUsers from "./user/ListUsers";
 import Signup from "./user/Signup";
 import AppNavbar from "./core/AppNavbar";
+import Signin from "./user/Signin";
 const MainRouter = () => {
   return (
     <div>
@@ -12,6 +13,7 @@ const MainRouter = () => {
         <Route exact path="/" component={Home} />
         <Route path="/users" component={ListUsers} />
         <Route path="/signup" component={Signup} />
+        <Route path="/signin" component={Signin} />
       </Switch>
     </div>
   );

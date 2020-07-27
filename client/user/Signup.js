@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { create } from "./api-user";
+import { Form, Card, Button, Col, Modal, Alert, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
-  const styles = useStyles();
   const [values, setValues] = useState({
     name: "",
     password: "",
@@ -10,6 +11,8 @@ const Signup = () => {
     open: false,
     error: "",
   });
+
+  const [showAlert, setShowAlert] = useState(true);
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
@@ -31,77 +34,77 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      {/* <Grid container spacing="4" justify="center" alignItems="center">
-        <Grid item xs={12} sm={6} md={6}>
-          <Card className={styles.card}>
-            <CardContent>
-              <Typography variant="h6">Sign Up</Typography>
-              <TextField
-                id="name"
-                label="Name"
-                value={values.name}
-                onChange={handleChange("name")}
-                margin="normal"
-              />
-              <br />
-              <TextField
-                id="email"
-                label="Email"
-                value={values.email}
-                onChange={handleChange("email")}
-                margin="normal"
-              />
-              <br />
-              <TextField
-                id="password"
-                label="Password"
-                value={values.password}
-                onChange={handleChange("password")}
-                margin="normal"
-              />
-              <br />
+    <Row className="mt-1">
+      <Col md={{ span: 6, offset: 3 }}>
+        <h1 className="display-4 text-center">Sign Up</h1>
+        <Card className="px-5 mx-5">
+          <Card.Body>
+            <Form>
+              <Form.Group as={Col} controlId="formGridName">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter name"
+                  value={values.name}
+                  onChange={handleChange("name")}
+                />
+              </Form.Group>
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  value={values.email}
+                  onChange={handleChange("email")}
+                />
+              </Form.Group>
+              <Form.Group as={Col} controlId="formGridPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter password"
+                  value={values.password}
+                  onChange={handleChange("password")}
+                />
+              </Form.Group>
               {values.error && (
-                <Typography component="p" color="error">
-                  <Icon color="error">error</Icon>
-                  {values.error}
-                </Typography>
+                <Alert
+                  variant="danger"
+                  className="mx-3"
+                  onClose={() => setShowAlert(false)}
+                  dismissible
+                >
+                  <Alert.Heading> {values.error}</Alert.Heading>
+                </Alert>
               )}
-            </CardContent>
-            <CardActions>
               <Button
-                color="primary"
-                variant="contained"
+                variant="primary"
+                className="col-md-2 offset-md-5"
                 onClick={handelSubmit}
               >
-                Submit
+                Sign up
               </Button>
-            </CardActions>
-          </Card>
-          <Dialog
-            open={values.open}
-            disableBackdropClick={true}
-            className={styles.dialog}
-          >
-            <DialogTitle>New Account</DialogTitle>
-            <DialogContentText>
-              New Account Successfully created
-            </DialogContentText>
-            <DialogActions>
-              <Link to="/signin">
-                <Button
-                  color="primary"
-                  autoFocus="autoFocus"
-                  variant="contained"
-                >
-                  Sign In
-                </Button>
-              </Link>
-            </DialogActions>
-          </Dialog>
-        </Grid>
-      </Grid> */}
-    </div>
+            </Form>
+          </Card.Body>
+        </Card>
+        <Modal
+          show={values.open}
+          onHide={() => {
+            setValues({ ...values, open: !values.open });
+          }}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>New Account</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>New Account Successfully created</Modal.Body>
+          <Modal.Footer>
+            <Link to="/signin">
+              <Button variant="primary">Sign In</Button>
+            </Link>
+          </Modal.Footer>
+        </Modal>
+      </Col>
+    </Row>
   );
 };
 

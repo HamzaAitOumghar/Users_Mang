@@ -41,19 +41,21 @@ const ListUsers = () => {
                 <ListGroup variant="flush">
                   {users.map((item, i) => {
                     return (
-                      <Row className="my-1">
+                      <Row className="my-1" key={i}>
                         <Col md="2" className="my-auto">
                           <img src={userImg} className="img-fluid" />
                         </Col>
                         <Col md="8" className="my-auto">
-                          <Link to={"/user/" + item._id} key={i}>
+                          <Link to={"/user/" + item._id}>
                             <ListGroup.Item style={{ border: "0px" }}>
                               {item.name}
                             </ListGroup.Item>
                           </Link>
                         </Col>
                         <Col md="2" className="my-auto">
-                          <img src={nextImg} className="img-fluid" />
+                          <Link to={"/user/" + item._id}>
+                            <img src={nextImg} className="img-fluid" />
+                          </Link>
                         </Col>
                       </Row>
                     );

@@ -1,4 +1,4 @@
-const { signout } = require("./api-auth");
+import { signout } from "./api-auth";
 
 function authenticate(jwt, cb) {
   if (typeof window !== "undefined") {
