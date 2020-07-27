@@ -5,6 +5,7 @@ import ListUsers from "./user/ListUsers";
 import Signup from "./user/Signup";
 import AppNavbar from "./core/AppNavbar";
 import Signin from "./user/Signin";
+import Profile from "./user/Profile";
 const MainRouter = () => {
   return (
     <div>
@@ -14,6 +15,7 @@ const MainRouter = () => {
         <Route path="/users" component={ListUsers} />
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
+        <Route path="/user/:userId" component={Profile} />
       </Switch>
     </div>
   );
