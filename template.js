@@ -1,4 +1,4 @@
-export default () => {
+export default ({ markup }) => {
   return `<!doctype html>
   <html lang="en">
   <head>
@@ -9,7 +9,7 @@ export default () => {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
   </head>
   <body>
-  <div id="root">Hello World</div>
+  <div id="root">${markup}</div>
   <script type="text/javascript" src="/dist/bundle.js"></script>
   </body>
   </html>`;

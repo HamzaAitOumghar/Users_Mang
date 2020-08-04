@@ -4,16 +4,20 @@ import { read } from "./api-user";
 import { Redirect } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import userImg from "./../assets/user.png";
+import moment from "moment";
+import UpdateUser from "./UpdateUser";
+import DeleteUser from "./DeleteUser";
 
 const Profile = ({ match }) => {
   const [user, setUser] = useState({});
   const [redirectToSignin, setRedirectToSignin] = useState(false);
+  const [showUpdate, handleShowUpdate] = useState(false);
+  const [showDelete, handleShowDelete] = useState(false);
 
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
     const jwt = auth.isAuthenticated();
-    console.log("UserId : " + match.params.userId);
     read({ userId: match.params.userId }, { t: jwt.token }, signal).then(
       (data) => {
         if (data && data.error) {
@@ -55,16 +59,51 @@ const Profile = ({ match }) => {
                     role="group"
                     aria-label="Second group"
                   >
-                    <button type="button" className="btn btn-secondary">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={() => {
+                        handleShowUpdate(true);
+                      }}
+                    >
                       <i className="fa fa-edit"></i>
                     </button>
-                    <button type="button" className="btn btn-secondary">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={() => {
+                        handleShowDelete(true);
+                      }}
+                    >
                       <i className="fa fa-trash"></i>
                     </button>
                   </div>
                 </div>
               </div>
+              <hr />
+              <div className="row">
+                <div className="col-md-12">
+                  Joined :{" "}
+                  <strong className="text-danger">
+                    {moment(user.created).format("MMMM Do YYYY, h:mm:ss a")}
+                  </strong>
+                </div>
+              </div>
             </Card.Body>
+            <UpdateUser
+              user={user}
+              show={showUpdate}
+              handleShow={() => {
+                handleShowUpdate(!showUpdate);
+              }}
+            />
+            <DeleteUser
+              id={match.params.userId}
+              show={showDelete}
+              handleClose={() => {
+                handleShowDelete(!showDelete);
+              }}
+            />
           </Card>
         </div>
       </div>

@@ -54,7 +54,7 @@ const update = async (params, credentials, user) => {
       },
       body: JSON.stringify(user),
     });
-    return await response.json;
+    return await response.json();
   } catch (error) {
     console.log(error);
   }
