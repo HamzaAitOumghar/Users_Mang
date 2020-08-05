@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import * as auth from "./../auth/auth-helper";
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
-const DeleteUser = ({ id, show, handleClose }) => {
+const DeleteUser = ({ t, id, show, handleClose }) => {
   const [redirect, setRedirect] = useState(false);
 
   const handleDelete = () => {
@@ -28,15 +28,15 @@ const DeleteUser = ({ id, show, handleClose }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Delete User</Modal.Title>
+        <Modal.Title> {t("userdel.title")}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Confirm to delete your account</Modal.Body>
+      <Modal.Body>{t("userdel.confirm")}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          Cancel
+          {t("button.close")}
         </Button>
         <Button variant="danger" onClick={handleDelete}>
-          Confirm
+          {t("button.delete")}
         </Button>
       </Modal.Footer>
     </Modal>
@@ -44,6 +44,7 @@ const DeleteUser = ({ id, show, handleClose }) => {
 };
 
 DeleteUser.propTypes = {
+  t: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   show: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,

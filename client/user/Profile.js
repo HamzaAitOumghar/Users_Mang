@@ -7,12 +7,14 @@ import userImg from "./../assets/user.png";
 import moment from "moment";
 import UpdateUser from "./UpdateUser";
 import DeleteUser from "./DeleteUser";
+import { useTranslation } from "react-i18next";
 
 const Profile = ({ match }) => {
   const [user, setUser] = useState({});
   const [redirectToSignin, setRedirectToSignin] = useState(false);
   const [showUpdate, handleShowUpdate] = useState(false);
   const [showDelete, handleShowDelete] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -42,7 +44,7 @@ const Profile = ({ match }) => {
         <div className="col-md-8 offset-md-2">
           <Card>
             <h1 className="display-4 ml-3" style={{ fontSize: "30px" }}>
-              Profile :
+              {t("users.profile")}
             </h1>
             <Card.Body>
               <div className="row">
@@ -83,7 +85,7 @@ const Profile = ({ match }) => {
               <hr />
               <div className="row">
                 <div className="col-md-12">
-                  Joined :{" "}
+                  {t("users.joined")} :{" "}
                   <strong className="text-danger">
                     {moment(user.created).format("MMMM Do YYYY, h:mm:ss a")}
                   </strong>
@@ -91,6 +93,7 @@ const Profile = ({ match }) => {
               </div>
             </Card.Body>
             <UpdateUser
+              t={t}
               user={user}
               show={showUpdate}
               handleShow={() => {
@@ -98,6 +101,7 @@ const Profile = ({ match }) => {
               }}
             />
             <DeleteUser
+              t={t}
               id={match.params.userId}
               show={showDelete}
               handleClose={() => {

@@ -2,22 +2,32 @@ import React from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
 import * as auth from "./../auth/auth-helper";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const AppNavbar = withRouter(({ history }) => {
+  const { t, i18n } = useTranslation();
+
   const isActive = (path) => {
     if (history.location.pathname == path) return { color: "#ff4081" };
     else return { color: "#ffffff" };
   };
+
+  const changeLanguage = (event) => {
+    i18n.changeLanguage(event.target.value);
+    toast.info(t("lang.msg"));
+  };
+
   return (
     <>
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        <Navbar.Brand href="#">UM</Navbar.Brand>
         <Nav className="mr-auto">
           <Link to="/" className="nav-link" style={isActive("/")}>
             <i className="fa fa-home"></i>
           </Link>
           <Link to="/users" style={isActive("/users")} className="nav-link">
-            Users
+            {t("navbar.users")}
           </Link>
           {!auth.isAuthenticated() && (
             <>
@@ -26,14 +36,14 @@ const AppNavbar = withRouter(({ history }) => {
                 style={isActive("/signup")}
                 className="nav-link"
               >
-                Sign Up
+                {t("navbar.signup")}
               </Link>
               <Link
                 to="/signin"
                 style={isActive("/signin")}
                 className="nav-link"
               >
-                Sign In
+                {t("navbar.signin")}
               </Link>
             </>
           )}
@@ -45,7 +55,7 @@ const AppNavbar = withRouter(({ history }) => {
                 style={isActive("/user/" + auth.isAuthenticated().user._id)}
                 className="nav-link"
               >
-                My Profile
+                {t("navbar.profile")}
               </Link>
               <Link
                 to="/"
@@ -55,11 +65,19 @@ const AppNavbar = withRouter(({ history }) => {
                 }}
                 className="nav-link"
               >
-                Sign out
+                {t("navbar.logout")}
               </Link>
             </>
           )}
         </Nav>
+        <div className="ml-auto">
+          <select className="custom-select" onChange={changeLanguage}>
+            <option value="en" defaultValue>
+              EN
+            </option>
+            <option value="fr">FR</option>
+          </select>
+        </div>
       </Navbar>
     </>
   );

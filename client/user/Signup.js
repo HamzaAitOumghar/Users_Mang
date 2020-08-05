@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { create } from "./api-user";
 import { Form, Card, Button, Col, Modal, Alert, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Signup = () => {
+  const { t } = useTranslation();
+
   const [values, setValues] = useState({
     name: "",
     password: "",
@@ -36,12 +39,12 @@ const Signup = () => {
   return (
     <Row className="mt-1">
       <Col md={{ span: 6, offset: 3 }}>
-        <h1 className="display-4 text-center">Sign Up</h1>
+        <h1 className="display-4 text-center">{t("signup.title")}</h1>
         <Card className="px-5 mx-5">
           <Card.Body>
             <Form>
               <Form.Group as={Col} controlId="formGridName">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>{t("from.name")}</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter name"
@@ -50,7 +53,7 @@ const Signup = () => {
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridEmail">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>{t("from.email")}</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
@@ -59,7 +62,7 @@ const Signup = () => {
                 />
               </Form.Group>
               <Form.Group as={Col} controlId="formGridPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>{t("from.password")}</Form.Label>
                 <Form.Control
                   type="password"
                   placeholder="Enter password"
@@ -79,10 +82,10 @@ const Signup = () => {
               )}
               <Button
                 variant="primary"
-                className="col-md-2 offset-md-5"
+                className="col-md-4 offset-md-4"
                 onClick={handelSubmit}
               >
-                Sign up
+                {t("button.signup")}
               </Button>
             </Form>
           </Card.Body>
@@ -99,7 +102,7 @@ const Signup = () => {
           <Modal.Body>New Account Successfully created</Modal.Body>
           <Modal.Footer>
             <Link to="/signin">
-              <Button variant="primary">Sign In</Button>
+              <Button variant="primary">{t("button.signin")}</Button>
             </Link>
           </Modal.Footer>
         </Modal>

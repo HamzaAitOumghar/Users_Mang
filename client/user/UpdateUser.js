@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 
-const UpdateUser = ({ show, handleShow, user }) => {
+const UpdateUser = ({ t, show, handleShow, user }) => {
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -53,12 +53,12 @@ const UpdateUser = ({ show, handleShow, user }) => {
   return (
     <Modal show={show} onHide={handleShow}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit User</Modal.Title>
+        <Modal.Title>{t("userEdit.title")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
           <Form.Group as={Col} controlId="formGridName">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>{t("from.name")}</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter name"
@@ -67,7 +67,7 @@ const UpdateUser = ({ show, handleShow, user }) => {
             />
           </Form.Group>
           <Form.Group as={Col} controlId="formGridEmail">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>{t("from.email")}</Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter email"
@@ -76,7 +76,7 @@ const UpdateUser = ({ show, handleShow, user }) => {
             />
           </Form.Group>
           <Form.Group as={Col} controlId="formGridPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>{t("from.password")}</Form.Label>
             <Form.Control
               type="password"
               placeholder="Enter password"
@@ -93,10 +93,10 @@ const UpdateUser = ({ show, handleShow, user }) => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="danger" onClick={handleShow}>
-          Close
+          {t("button.close")}
         </Button>
         <Button variant="primary" onClick={handelSubmit}>
-          Update
+          {t("button.update")}
         </Button>
       </Modal.Footer>
     </Modal>
@@ -107,6 +107,7 @@ UpdateUser.propTypes = {
   user: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
   handleShow: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
 };
 
 export default UpdateUser;

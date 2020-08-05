@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { ListGroup, Col, Row, Card } from "react-bootstrap";
 import userImg from "./../assets/user.png";
 import nextImg from "./../assets/next.png";
+import { useTranslation } from "react-i18next";
 
 const ListUsers = () => {
+  const { t } = useTranslation();
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const abortController = new AbortController();
@@ -32,7 +34,7 @@ const ListUsers = () => {
             <Row className="my-2">
               <Col>
                 <h1 className="display-4" style={{ fontSize: "30px" }}>
-                  All Users
+                  {t("users.title")}
                 </h1>
               </Col>
             </Row>
